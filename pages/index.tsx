@@ -20,7 +20,7 @@ function ProfileWithProjects({ image, name, title, description }: ProfileWithPro
         emailUrl="#"
         linkedinUrl="#"
       />
-      <ProjectsButtonPanel expanded={false} onClick={() => {}}>
+  <ProjectsButtonPanel expanded={false} onClick={() => {/* no-op */}}>
         <ProjectGalleryContent />
       </ProjectsButtonPanel>
     </div>
