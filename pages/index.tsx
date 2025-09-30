@@ -1,11 +1,44 @@
+// Helper component for each profile with its own project tab
+import React from 'react';
+type ProfileWithProjectsProps = {
+  image: string;
+  name: string;
+  title: string;
+  description: string;
+};
+
+function ProfileWithProjects({ image, name, title, description }: ProfileWithProjectsProps) {
+  const [projectsOpen, setProjectsOpen] = useState(false);
+  return (
+    <div>
+      <ProfileCard
+        image={image}
+        name={name}
+        title={title}
+        description={description}
+        portfolioUrl="#"
+        resumeUrl="#"
+        emailUrl="#"
+        linkedinUrl="#"
+        projectsOpen={projectsOpen}
+        onToggleProjects={() => setProjectsOpen(v => !v)}
+      />
+      <ProjectsButtonPanel expanded={projectsOpen} onClick={() => setProjectsOpen(v => !v)}>
+        <ProjectGalleryContent />
+      </ProjectsButtonPanel>
+    </div>
+  );
+}
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useRef, useEffect } from 'react'
 
+
 const Navbar = () => (
   <nav className="bg-transparent p-4">
-    <div className="container mx-auto flex items-center justify-start">
+    <div className="container mx-auto px-4 flex items-center justify-between">
       <img src="/idc_nav.png" alt="IDC Logo" className="h-10 w-auto" style={{ aspectRatio: 'auto', filter: 'brightness(0)' }} />
+  <span className="text-xl font-thin tracking-wide text-gray-900">INTERACTION DESIGN 2026</span>
     </div>
   </nav>
 )
@@ -183,23 +216,29 @@ const HomePage: NextPage = () => {
       <Navbar />
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <ProfileCard
-              image="IXD/abhishek.png"
-              name="Abhishek Benny"
-              title="Interaction Designer | Architect | Winner of XO Symposium 25"
-              description={`Abhishek is an architect from Calicut University, has an experience of 2 years. He’s is very good with people and can organise elaborate events very easily. He organised art shows.\n\nHe has a knack for Service Design and works with products a lot. His porfolio projects like puppet and his fellowship with barath Digital reflect the same.`}
-              portfolioUrl="#"
-              resumeUrl="#"
-              emailUrl="#"
-              linkedinUrl="#"
-              projectsOpen={projectsOpen1}
-              onToggleProjects={() => setProjectsOpen1(v => !v)}
-            />
-            <ProjectsButtonPanel expanded={projectsOpen1} onClick={() => setProjectsOpen1(v => !v)}>
-              <ProjectGalleryContent />
-            </ProjectsButtonPanel>
-          </div>
+            {[
+              {
+                image: "IXD/abhishek.png",
+              name: "Abhishek Benny",
+              title: "Interaction Designer | Architect | Winner of XO Symposium 25",
+              description: `Abhishek is an architect from Calicut University, has an experience of 2 years. He’s is very good with people and can organise elaborate events very easily. He organised art shows.\n\nHe has a knack for Service Design and works with products a lot. His porfolio projects like puppet and his fellowship with barath Digital reflect the same.`
+            },
+            { image: "IXD/placeholder.png", name: "Khushi Agarwal", title: "Interaction Designer", description: `Profile description for Khushi Agarwal.` },
+            { image: "IXD/placeholder.png", name: "Karthik SS", title: "Interaction Designer", description: `Profile description for Karthik SS.` },
+            { image: "IXD/placeholder.png", name: "Saie Sirish Gokhle", title: "Interaction Designer", description: `Profile description for Saie Sirish Gokhle.` },
+            { image: "IXD/placeholder.png", name: "Sarayu Sree", title: "Interaction Designer", description: `Profile description for Sarayu Sree.` },
+            { image: "IXD/placeholder.png", name: "Arindam K Dutta", title: "Interaction Designer", description: `Profile description for Arindam K Dutta.` },
+            { image: "IXD/placeholder.png", name: "Anoushka Shome", title: "Interaction Designer", description: `Profile description for Anoushka Shome.` },
+            { image: "IXD/placeholder.png", name: "Utkarsha Kate", title: "Interaction Designer", description: `Profile description for Utkarsha Kate.` },
+            { image: "IXD/placeholder.png", name: "Samiksha Gajbhiye", title: "Interaction Designer", description: `Profile description for Samiksha Gajbhiye.` },
+            { image: "IXD/placeholder.png", name: "Prajakta Hardikar", title: "Interaction Designer", description: `Profile description for Prajakta Hardikar.` },
+            { image: "IXD/placeholder.png", name: "Pradumn Sorte", title: "Interaction Designer", description: `Profile description for Pradumn Sorte.` },
+            { image: "IXD/placeholder.png", name: "Mukil Kumar", title: "Interaction Designer", description: `Profile description for Mukil Kumar.` }
+          ].map((profile) => (
+              <div className="w-full mt-10">
+            <ProfileWithProjects key={profile.name} {...profile} />
+              </div>
+          ))}
         </div>
       </div>
       <div className="h-64" /> {/* Spacer for dropdown */}

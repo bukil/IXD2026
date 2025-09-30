@@ -1,4 +1,6 @@
-## Blank template for new [Next.js](https://nextjs.org/) projects.
+## ixd
+
+This is the source code for the ixd project, built with [Next.js](https://nextjs.org/), React, TypeScript, and TailwindCSS.
 
 ## Features
 
