@@ -207,7 +207,7 @@ const ProfileCard = ({ image, name, title, description, portfolioUrl, resumeUrl,
 )
 
 const HomePage: NextPage = () => {
-  const [projectsOpen1, setProjectsOpen1] = useState(false);
+  // Removed unused projectsOpen1 and setProjectsOpen1
   return (
     <div>
       <Head>
@@ -234,9 +234,9 @@ const HomePage: NextPage = () => {
             { image: "IXD/placeholder.png", name: "Prajakta Hardikar", title: "Interaction Designer", description: `Profile description for Prajakta Hardikar.` },
             { image: "IXD/placeholder.png", name: "Pradumn Sorte", title: "Interaction Designer", description: `Profile description for Pradumn Sorte.` },
             { image: "IXD/placeholder.png", name: "Mukil Kumar", title: "Interaction Designer", description: `Profile description for Mukil Kumar.` }
-          ].map((profile) => (
-              <div className="w-full mt-10">
-            <ProfileWithProjects key={profile.name} {...profile} />
+          ].map((profile, idx) => (
+              <div className="w-full mt-10" key={profile.name + idx}>
+                <ProfileWithProjects {...profile} />
               </div>
           ))}
         </div>
