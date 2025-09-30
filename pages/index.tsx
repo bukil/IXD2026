@@ -8,7 +8,6 @@ type ProfileWithProjectsProps = {
 };
 
 function ProfileWithProjects({ image, name, title, description }: ProfileWithProjectsProps) {
-  const [projectsOpen, setProjectsOpen] = useState(false);
   return (
     <div>
       <ProfileCard
@@ -20,10 +19,8 @@ function ProfileWithProjects({ image, name, title, description }: ProfileWithPro
         resumeUrl="#"
         emailUrl="#"
         linkedinUrl="#"
-        projectsOpen={projectsOpen}
-        onToggleProjects={() => setProjectsOpen(v => !v)}
       />
-      <ProjectsButtonPanel expanded={projectsOpen} onClick={() => setProjectsOpen(v => !v)}>
+      <ProjectsButtonPanel expanded={false} onClick={() => {}}>
         <ProjectGalleryContent />
       </ProjectsButtonPanel>
     </div>
@@ -52,8 +49,6 @@ interface ProfileCardProps {
   resumeUrl?: string;
   emailUrl?: string;
   linkedinUrl?: string;
-  projectsOpen: boolean;
-  onToggleProjects: () => void;
 }
 
 const ProfileActions = ({ portfolioUrl, resumeUrl }: { portfolioUrl?: string; resumeUrl?: string }) => (
@@ -63,55 +58,6 @@ const ProfileActions = ({ portfolioUrl, resumeUrl }: { portfolioUrl?: string; re
   </div>
 )
 
-const ProjectGallery = ({ expanded }: { expanded: boolean }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [maxHeight, setMaxHeight] = useState('0px');
-
-  useEffect(() => {
-    if (expanded && contentRef.current) {
-      setMaxHeight(contentRef.current.scrollHeight + 'px');
-    } else {
-      setMaxHeight('0px');
-    }
-  }, [expanded]);
-
-  return (
-    <div
-      ref={contentRef}
-      style={{ maxHeight, opacity: expanded ? 1 : 0, transition: 'max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s' }}
-      className="overflow-hidden w-full"
-    >
-      <div className="mt-8 bg-gray-100 border border-black rounded-3xl p-8 w-full max-w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[1, 2].map((i) => (
-            <a
-              key={i}
-              href="#"
-              className="block border border-black rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden transition-shadow hover:shadow-lg bg-white"
-            >
-              <img
-                src={`https://placehold.co/600x400?text=Project+${i}`}
-                alt={`Project ${i}`}
-                className="object-cover w-full h-full"
-              />
-            </a>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-          {[1, 2].map((i) => (
-            <a
-              key={i}
-              href="#"
-              className="block border border-black rounded-2xl px-6 py-3 text-base mt-0 text-center bg-white"
-            >
-              Emergency Response Support System &rarr;
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const ProjectsButtonPanel = ({ expanded, onClick, children }: { expanded: boolean; onClick: () => void; children: React.ReactNode }) => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -184,7 +130,7 @@ const ProjectGalleryContent = () => (
   </div>
 );
 
-const ProfileCard = ({ image, name, title, description, portfolioUrl, resumeUrl, emailUrl, linkedinUrl, projectsOpen, onToggleProjects }: ProfileCardProps) => (
+const ProfileCard = ({ image, name, title, description, portfolioUrl, resumeUrl, emailUrl, linkedinUrl }: ProfileCardProps) => (
   <div className="w-full bg-gray-50 rounded-3xl border border-black mt-10 p-6 flex flex-col md:flex-row items-stretch gap-6 relative">
     {/* Left Side */}
     <div className="flex flex-col items-start md:w-1/2">
